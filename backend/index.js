@@ -1,7 +1,8 @@
 const connectMongo = require("./db");
 const express = require("express");
+var cors = require("cors");
 const app = express();
-
+app.use(cors());
 connectMongo();
 const PORT = 5000;
 //for passing data between req and res.
