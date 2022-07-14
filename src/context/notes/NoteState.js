@@ -2,13 +2,13 @@ import NoteContext from "./noteContext";
 import react, { useState } from "react";
 
 const NoteState = (props) => {
-  const HOST = "http://localhost:5000";
+  const URL = process.env.PORT || "http://localhost:5000";
   const notesInitial = [];
   //add a note
   const [notes, setNotes] = useState(notesInitial);
   //fetch notes from mongo
   async function getNotes(id, title, description, tag) {
-    const response = await fetch(`${HOST}/api/notes/fetchallnotes`, {
+    const response = await fetch(`${URL}/api/notes/fetchallnotes`, {
       method: "GET",
       headers: {
         "Contect-Type": "application/json",
@@ -20,7 +20,7 @@ const NoteState = (props) => {
   }
 
   const addNote = async (title, description, tag) => {
-    const response = await fetch(`${HOST}/api/notes/addnote`, {
+    const response = await fetch(`${URL}/api/notes/addnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const NoteState = (props) => {
   // TODO: API Call
   const deleteNote = async (id) => {
     // API Call
-    const response = await fetch(`${HOST}/api/notes/deletenote/${id}`, {
+    const response = await fetch(`${URL}/api/notes/deletenote/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const NoteState = (props) => {
   };
   //edit note
   async function editNote(id, title, description, tag) {
-    const response = await fetch(`${HOST}/api/notes/updatenote/${id}`, {
+    const response = await fetch(`${URL}/api/notes/updatenote/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

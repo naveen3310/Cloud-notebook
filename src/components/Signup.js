@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function Signup(props) {
+  const URL = process.env.PORT || "http://localhost:5000";
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -15,18 +16,15 @@ function Signup(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (credentials.password === credentials.cpassword) {
-      const response = await fetch(
-        "http://localhost:5000/api/auth/createuser",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: credentials.name,
-            email: credentials.email,
-            password: credentials.password,
-          }),
-        }
-      );
+      const response = await fetch(`${URL}/api/auth/createuser`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: credentials.name,
+          email: credentials.email,
+          password: credentials.password,
+        }),
+      });
       const json = await response.json();
       if (json.success === true) {
         localStorage.setItem("token", json.authtoken);
